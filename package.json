@@ -1,0 +1,11 @@
+{
+  "name": "stromi-types",
+  "version": "1.0.0",
+  "description": "stromi type",
+  "main": "",
+  "types": "index.d.ts",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "typeScriptVersion": "3.7"
+}
