@@ -163,6 +163,19 @@ export interface Tariff {
   description: TariffDescription;
 }
 
+export interface TariffByConnectorId {
+    tariffElementId: string;
+    connectorId: string;
+    tariffId: string;
+    sanitizedEvseId: string;
+    currency: CurrencyISO4217;
+    elements: TariffElement[];
+    powerType: PowerType;
+    tariff_alt_text: DisplayText[];
+    tariff_alt_url: string;
+    updateDate: string;
+}
+
 export interface Location {
   id: string;
   country: CountryIso3166Alpha3;
