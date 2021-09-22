@@ -81,11 +81,6 @@ export enum CurrencyISO4217 {
   CHF = "CHF",
 }
 
-export interface TariffElement {
-  price_components: PriceComponent[];
-  restrictions?: TariffRestrictions;
-}
-
 export enum TariffDimensionType {
   ENERGY = "ENERGY", //	defined in kWh, step_size multiplier: 1 Wh
   FLAT = "FLAT", //	flat fee, no unit
@@ -94,10 +89,15 @@ export enum TariffDimensionType {
   BLOCKING_TIME = "BLOCKING_TIME",
 }
 
+export interface TariffElement {
+  price_components: PriceComponent[];
+  restrictions?: TariffRestrictions;
+}
+
 export interface PriceComponent {
   type: TariffDimensionType;
   price: number; // price per unit (excluding VAT) for this tariff dimension
-  step_size: number; // Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed.
+  step_size?: number; // Minimum amount to be billed. This unit will be billed in this step_size blocks. For example: if type is time and step_size is 300, then time will be billed in blocks of 5 minutes, so if 6 minutes is used, 10 minutes (2 blocks of step_size) will be billed.
 }
 
 export enum DayOfWeek {
@@ -111,17 +111,22 @@ export enum DayOfWeek {
 }
 
 export interface TariffRestrictions {
-  start_time?: string; // (5)	?	Start time of day, for example 13:30, valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]
-  end_time?: string; // (5)	?	End time of day, for example 19:45, valid until this time of the day. Same syntax as start_time
   start_date?: string; // (10)	?	Start date, for example: 2015-12-24, valid from this day
   end_date?: string; // (10)	?	End date, for example: 2015-12-27, valid until this day (excluding this day)
-  min_kwh?: number; // 	?	Minimum used energy in kWh, for example 20, valid from this amount of energy is used
-  max_kwh?: number; // 	?	Maximum used energy in kWh, for example 50, valid until this amount of energy is used
-  min_power?: number; // 	?	Minimum power in kW, for example 0, valid from this charging speed
-  max_power?: number; // 	?	Maximum power in kW, for example 20, valid up to this charging speed
+
+  day_of_week?: DayOfWeek[]; //	*	Which day(s) of the week this tariff is valid
+
+  start_time?: number; // (5)	?	Start time of day in MINUTES, for example 810 -> 13:30, valid from this time of the day. Must be in 24h format with leading zeros. Hour/Minute separator: ":" Regex: [0-2][0-9]:[0-5][0-9]
+  end_time?: number; // (5)	?	End time of day, for example 1185 -> 19:45, valid until this time of the day. Same syntax as start_time
+
   min_duration?: number; // 	?	Minimum duration in seconds, valid for a duration from x seconds
   max_duration?: number; // 	?	Maximum duration in seconds, valid for a duration up to x seconds
-  day_of_week?: DayOfWeek; //	*	Which day(s) of the week this tariff is valid
+
+  min_kwh?: number; // 	?	Minimum used energy in kWh, for example 20, valid from this amount of energy is used
+  max_kwh?: number; // 	?	Maximum used energy in kWh, for example 50, valid until this amount of energy is used
+
+  min_power?: number; // 	?	Minimum power in kW, for example 0, valid from this charging speed
+  max_power?: number; // 	?	Maximum power in kW, for example 20, valid up to this charging speed
 }
 
 export enum Network {
@@ -164,16 +169,16 @@ export interface Tariff {
 }
 
 export interface TariffByConnectorId {
-    tariffElementId: string;
-    connectorId: string;
-    tariffId: string;
-    sanitizedEvseId: string;
-    currency: CurrencyISO4217;
-    elements: TariffElement[];
-    powerType: PowerType;
-    tariff_alt_text: DisplayText[];
-    tariff_alt_url: string;
-    updateDate: string;
+  tariffElementId: string;
+  connectorId: string;
+  tariffId: string;
+  sanitizedEvseId: string;
+  currency: CurrencyISO4217;
+  elements: TariffElement[];
+  powerType: PowerType;
+  tariff_alt_text: DisplayText[];
+  tariff_alt_url: string;
+  updateDate: string;
 }
 
 export interface Location {
@@ -186,8 +191,10 @@ export interface Location {
   lng: number;
   createDate: Date;
   updateDate: Date;
-  connectors: Array<Pick<
-    Connector,
-    "id" | "evseId" | "sanitizedEvseId" | "power" | "standard" | "powerType"
-  >>;
+  connectors: Array<
+    Pick<
+      Connector,
+      "id" | "evseId" | "sanitizedEvseId" | "power" | "standard" | "powerType"
+    >
+  >;
 }
