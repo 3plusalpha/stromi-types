@@ -2,7 +2,7 @@
   "name": "stromi-types",
   "version": "1.0.0",
   "description": "stromi type",
-  "main": "",
+  "main": "index.js",
   "types": "index.d.ts",
   "scripts": {},
   "author": "",
