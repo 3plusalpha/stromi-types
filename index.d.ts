@@ -191,6 +191,7 @@ export interface Location {
   lng: number;
   createDate: Date;
   updateDate: Date;
+  maxChargingPower: number;
   connectors: Array<
     Pick<
       Connector,
