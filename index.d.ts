@@ -179,6 +179,7 @@ export interface TariffByConnectorId {
   tariff_alt_text: DisplayText[];
   tariff_alt_url: string;
   updateDate: string;
+  country: CountryIso3166Alpha3;
 }
 
 export interface Location {
