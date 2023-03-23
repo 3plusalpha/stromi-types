@@ -166,6 +166,7 @@ export interface Tariff {
   network: Network;
   validFrom: Date;
   description: TariffDescription;
+  isAdhoc?: boolean;
 }
 
 export interface TariffByConnectorId {
@@ -180,6 +181,7 @@ export interface TariffByConnectorId {
   tariff_alt_url: string;
   updateDate: string;
   country: CountryIso3166Alpha3;
+  isAdhoc?: boolean;
 }
 
 export interface Location {
