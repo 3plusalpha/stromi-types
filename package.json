@@ -1,5 +1,5 @@
 {
-  "name": "stromi-types",
+  "name": "@3plusalpha/stromi-types",
   "version": "1.0.0",
   "description": "stromi type",
   "main": "index.js",
