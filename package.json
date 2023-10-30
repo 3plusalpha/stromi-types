@@ -7,5 +7,6 @@
   "scripts": {},
   "author": "",
   "license": "ISC",
-  "typeScriptVersion": "3.7"
+  "typeScriptVersion": "3.7",
+  "repository": "https://github.com/3plusalpha/stromi-types.git"
 }
